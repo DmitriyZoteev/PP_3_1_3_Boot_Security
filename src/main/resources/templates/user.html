@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<h1><label th:utext="${user.getUsername()}"></label>, добро пожаловать на страницу профиля!</h1>
+Ваши данные: <br/>
+Имя: <label th:utext="${user.getFirst_name()}"></label><br/>
+Фамилия: <label th:utext="${user.getLast_name()}"></label><br/>
+Email: <label th:utext="${user.getEmail()}"></label><br/>
+Логин: <label th:utext="${user.getUsername()}"></label>
+<br/><br/>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
+
+</body>
+</html>

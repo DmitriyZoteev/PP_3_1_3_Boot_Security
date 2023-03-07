@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить или изменить роль</title>
+</head>
+<body>
+<form action="#" th:action="@{/admin/saveRole}" th:object="${role}" th:method="POST">
+
+    <input type="hidden" th:field="*{id}"/>
+    <br/>
+
+    <label for="name">Введите название роли: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+
+    <input type="submit" value="Ok"/>
+</form>
+<br/><br/>
+<input type="button" value="Вернуться к списку ролей"
+       onclick="window.location.href = '/admin/allRoles'"/>
+<br/><br/>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
+
+</body>
+</html>

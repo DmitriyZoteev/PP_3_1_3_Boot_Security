@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить или изменить пользователя</title>
+</head>
+<body>
+<form action="#" th:action="@{/admin/saveUser}" th:object="${user}" th:method="POST">
+
+    <input type="hidden" th:field="*{id}"/>
+    <br/>
+
+    <label for="username">Введите логин: </label><br/>
+    <input type="text" th:field="*{username}" id="username"/>
+    <label for="username" th:if="${#fields.hasErrors('username')}" th:errorclass="error"
+           th:errors="*{username}"></label>
+    <br/>
+
+    <label for="password">Введите BCrypt пароль: </label><br/>
+    <input type="text" th:field="*{password}" id="password"/>
+    <label for="password" th:if="${#fields.hasErrors('password')}" th:errorclass="error"
+           th:errors="*{password}"></label>
+    <br/>
+
+    <label for="firstName">Введите имя: </label><br/>
+    <input type="text" th:field="*{first_name}" id="firstName"/>
+    <label for="firstName" th:if="${#fields.hasErrors('first_name')}" th:errorclass="error"
+           th:errors="*{first_name}"></label>
+    <br/>
+
+    <label for="lastName">Введите фамилию: </label><br/>
+    <input type="text" th:field="*{last_name}" id="lastName"/>
+    <label for="lastName" th:if="${#fields.hasErrors('last_name')}" th:errorclass="error"
+           th:errors="*{last_name}"></label>
+
+    <br/>
+
+    <label for="email">Введите Ваш email: </label><br/>
+    <input type="text" th:field="*{email}" id="email"/>
+    <label for="email" th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"></label>
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <ul>
+            <li th:each="err : ${#fields.allErrors()}" th:if="${err.contains('уже существует')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <br/>
+    Выберите роли пользователя: <br/>
+    <ul>
+        <div th:each="role : ${rolesList}">
+            <input type="checkbox" th:field="*{roles}" th:value="${role}"
+                   th:name="${role}" th:checked="${#lists.contains(user.roles, role)}"/>
+            <label th:for="${#ids.prev('roles')}"
+                   th:utext="${role.getName()}"></label>
+        </div>
+    </ul>
+
+    <input type="submit" value="Сохранить"/>
+</form>
+<br/><br/>
+<input type="button" value="Вернуться к списку пользователей"
+       onclick="window.location.href = '/admin/allUsers'"/>
+<br/><br/>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
+
+</body>
+</html>

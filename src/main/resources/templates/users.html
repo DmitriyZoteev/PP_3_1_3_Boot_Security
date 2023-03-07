@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Таблица пользователей</title>
+</head>
+<body>
+<h1>Таблица пользователей</h1>
+<br/><br/>
+<input type="button" value="Мои данные"
+       onclick="window.location.href = '/user'"/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Логин</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Email</th>
+        <th>Роли</th>
+        <th>Операции</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user: ${usersList}">
+        <tr2>
+            <td th:utext="${user.getUsername()}"></td>
+            <td th:utext="${user.getFirst_name()}"></td>
+            <td th:utext="${user.getLast_name()}"></td>
+            <td th:utext="${user.getEmail()}"></td>
+            <td>
+                <ul th:each="role: ${user.getRoles()}">
+                    <li th:utext="${role.getName()}"></li>
+                </ul>
+            </td>
+            <br>
+            <td>
+                <a th:href="@{/admin/updateInfo/{id}(id=${user.id})}">
+                    <input type="submit" value="изменить">
+                </a>
+                <form th:method="DELETE" th:action="@{/admin/deleteUser/{id}(id=${user.id})}">
+                    <input type="submit" value="удалить"/>
+                </form>
+            </td>
+        </tr2>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<input type="button" value="Добавить пользователя"
+       onclick="window.location.href = '/admin/addNewUser'"/>
+<br/><br/>
+<input type="button" value="Таблица ролей"
+       onclick="window.location.href = '/admin/allRoles'"/>
+<br/><br/>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Таблица ролей</title>
+</head>
+<body>
+<h1>Таблица ролей</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Название роли</th>
+        <th>Пользователи</th>
+        <th>Операции</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="role: ${rolesList}">
+        <tr2>
+            <td th:utext="${role.getName()}"></td>
+            <td>
+                <ul th:each="user: ${role.getUsers()}">
+                    <li th:utext="${user.getUsername()}"></li>
+                </ul>
+            </td>
+            <br>
+            <td>
+                <a th:href="@{/admin/updateInfoRole/{id}(id=${role.id})}">
+                    <input type="submit" value="изменить">
+                </a>
+                <form th:method="DELETE" th:action="@{/admin/deleteRole/{id}(id=${role.id})}">
+                    <input type="submit" value="удалить"/>
+                </form>
+            </td>
+        </tr2>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<input type="button" value="Добавить роль"
+       onclick="window.location.href = '/admin/addNewRole'"/>
+<br/><br/>
+<input type="button" value="Таблица пользователей"
+       onclick="window.location.href = '/admin/allUsers'"/>
+<br/><br/>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
+</body>
+</html>
